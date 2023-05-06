@@ -3,3 +3,4 @@ gitpush.sh
 gitsetup.sh
 application.properties
 dependencies.xml
+node_modules

@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="mb-3">
+    <label for="Description" class="form-label">Description:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="enter here" formControlName="description" />
+    <p *ngIf="hasError('description')" style="color: red;font-size: x-small;">*Description has to contain at least 5 characters</p>
+</div>
+<div>Priority:</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="priority" id="inlineRadio1" value=1 formControlName="priority">
+    <label class="form-check-label" for="inlineRadio1">Low</label>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="priority" id="inlineRadio2" value=2 formControlName="priority">
+    <label class="form-check-label" for="inlineRadio2">Medium</label>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="priority" id="inlineRadio3" value=3 formControlName="priority">
+    <label class="form-check-label" for="inlineRadio3">High</label>
+</div>
+<div class="mb-3">
+    <label for="Date" class="form-label">Date:</label>
+    <input type="date" class="form-control" id="Date" formControlName="dueDate" />
+    <p *ngIf="hasError('dueDate')" style="color: red;font-size: x-small;">*Date cannot be in the past</p>
+</div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Add Task</button>
+      </div>
+    
+</form>
