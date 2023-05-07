@@ -1,37 +1,3 @@
-#!/bin/bash
-echo
-echo Enter project name:
-read name
-
-echo
-echo ------------- CREATING NEW ANGULAR PROJECT: $name -------------
-echo
-ng new $name --routing --style=css
-cd $name
-echo $(pwd)
-
-echo
-echo ---------------- INSTALLING BOOTSTRAP -----------------
-echo
-npm install --save bootstrap
-
-echo
-echo ---------------- SETTING UP BOOTSTRAP -----------------
-echo
-echo "@import url('../node_modules/bootstrap/dist/css/bootstrap.min.css');" >> src/styles.css
-echo added  "@import url('../node_modules/bootstrap/dist/css/bootstrap.min.css')" line to src/styles.css
-
-echo
-echo ------------- SETTING UP ANGULAR MATERIAL -------------
-echo
-
-ng add @angular/material --theme=deeppurple-amber --animations=true
-
-echo
-echo --------------- Creating Material Module ---------------
-echo
-
-cat << EOF > src/app/material.module.ts
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -72,7 +38,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 @NgModule({
-  exports: [
+exports: [
     CdkTableModule,
     CdkTreeModule,
     DragDropModule,
@@ -112,11 +78,6 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTooltipModule,
     MatTreeModule,
     ScrollingModule,
-  ]
+]
 })
 export class MaterialModule { }
-EOF
-echo created material.module.ts file in src/app
-echo
-echo ------------- DONE -------------
-echo
