@@ -34,5 +34,9 @@ export class TasklistComponent implements OnInit, OnDestroy{
   ngOnDestroy(){
     this.sub$.unsubscribe;
   }
+
+  deleteTask(idx:number){
+    this.taskSvc.deleteTask(idx);
+  }
   
 }

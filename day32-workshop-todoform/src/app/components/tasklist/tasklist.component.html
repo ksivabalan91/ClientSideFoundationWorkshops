@@ -1,12 +1,17 @@
 <div class="card-group">
   <div class="card" *ngIf="taskList.length; else noItems">
     <div class="card-body" *ngFor="let card of taskList; let i = index">
-      <h5 class="card-title">Task {{ i + 1}}</h5>
-      <p class="text-muted">Description:</p>
-      <p class="card-text">{{ card.description }}</p>
-      <p class="card-text">
-        <small class="text-muted">Due Date: {{ card.dueDate }}</small>
-      </p>
+      <p class="card-text" style="background-color: darkslateblue; color: white;">Task {{ i + 1}}</p>
+      <p class="card-text">Description:<span >{{ card.description }}</span></p>
+
+      <div [ngSwitch]="card.priority">
+        <p class="card-text" *ngSwitchCase="1"><small class="text-muted">Priority: Low</small></p>
+        <p class="card-text" *ngSwitchCase="2"><small class="text-muted">Priority: Medium</small></p>
+        <p class="card-text" *ngSwitchCase="3"><small class="text-muted">Priority: High</small></p>
+      </div>
+      
+      <p class="card-text"><small class="text-muted">Due Date: {{ card.dueDate }}</small></p>
+      <a class="btn btn-danger" (click)="deleteTask(i)">Delete Task</a>
     </div>
   </div>
 </div>
