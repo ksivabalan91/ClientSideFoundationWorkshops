@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { lastValueFrom, map } from 'rxjs';
+import { Subscription, lastValueFrom, map } from 'rxjs';
 import { Weather } from '../models/weather.model';
 import { environment } from 'src/environments/environment';
 
@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class WeatherService {
 
   weather!:Weather;
+  subWea$!:Subscription;
   weatherUpdate = new EventEmitter<void>();
 
   private appid = environment.apiKey
@@ -17,11 +18,26 @@ export class WeatherService {
   
   constructor(private httpClient: HttpClient) {}
 
+
+  callApi2(cityName:string){
+    const params = new HttpParams()
+      .set('q',cityName)
+      .set('appid',this.appid)
+      .set('units','metric')
+      
+      this.subWea$ = this.httpClient.get(this.url,{ params }).subscribe({
+        next:(data)=>{console.log(data)},
+        error:(error: HttpErrorResponse)=>{console.error(error)},
+        complete:() => { this.subWea$.unsubscribe()}
+      })
+  }
+
   async callApi(cityName:string){
     const params = new HttpParams()
       .set('q',cityName)
       .set('appid',this.appid)
       .set('units','metric')
+
 
     this.weather = await lastValueFrom(
       this.httpClient.get<Weather>(this.url, { params }).pipe(
