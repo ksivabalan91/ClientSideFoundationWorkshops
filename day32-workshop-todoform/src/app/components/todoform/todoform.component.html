@@ -22,8 +22,12 @@
     <input type="date" class="form-control" id="Date" formControlName="dueDate" />
     <p *ngIf="hasError('dueDate')" style="color: red;font-size: x-small;">*Date cannot be in the past</p>
 </div>
-    <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Add Task</button>
-      </div>
+<div class="d-grid gap-2">
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Add Task</button>
+</div>
+<br>
+<div class="d-grid gap-2">
+    <button class="btn btn-warning" type="button" (click)="clearTasks()">Clear Tasks</button>
+</div>
     
 </form>

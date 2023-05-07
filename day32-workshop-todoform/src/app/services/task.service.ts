@@ -8,17 +8,29 @@ import { Subject } from 'rxjs';
 export class TaskService {
 
   tasks:Task[] = [];
+  count=0;
   updateObservable = new Subject<string>();
 
   constructor() { }
 
   addTask(task:Task){
-    this.tasks.push(task);
+    this.tasks.push(task);    
     this.updateObservable.next("task added");
+    localStorage.setItem("tasks",JSON.stringify(this.tasks));
   }
 
   getTasks(){
     return this.tasks.slice();
+  }
+
+  setTasks(storedTasks: Task[]){
+    this.tasks=storedTasks;
+  }
+
+  clearTasks(){
+    localStorage.clear();
+    this.tasks = [];
+    this.updateObservable.next("tasks cleared")
   }
 
 

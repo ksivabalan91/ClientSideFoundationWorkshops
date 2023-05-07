@@ -16,11 +16,21 @@ export class TasklistComponent implements OnInit, OnDestroy{
   constructor(private taskSvc:TaskService){} 
   
   ngOnInit(){
+    const localData =localStorage.getItem('tasks');
+    if(localData!=null){
+      const storedTasks = JSON.parse(localData)
+      storedTasks.map((task: Task) => {
+        return new Task(task.description,task.priority,task.dueDate)
+      })
+      this.taskList = storedTasks;
+      this.taskSvc.setTasks(storedTasks);
+    }
     this.sub$ = this.taskSvc.updateObservable.subscribe((message:string)=>{
       console.log(message);
       this.taskList = this.taskSvc.getTasks();
-    })
+    });    
   }  
+  
   ngOnDestroy(){
     this.sub$.unsubscribe;
   }

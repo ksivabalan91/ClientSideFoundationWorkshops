@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
@@ -8,11 +8,13 @@ import { TaskService } from 'src/app/services/task.service';
   templateUrl: './todoform.component.html',
   styleUrls: ['./todoform.component.css']
 })
-export class TodoformComponent implements OnInit {
+export class TodoformComponent implements OnInit, OnDestroy {
 
   form!:FormGroup;
 
   constructor(private taskSvc: TaskService, private fb:FormBuilder){
+  }
+  ngOnDestroy(): void {
   }
 
   ngOnInit(){
@@ -32,7 +34,12 @@ export class TodoformComponent implements OnInit {
     const task = this.form.value as Task;
     this.taskSvc.addTask(task);
   }
+  
+  clearTasks(){
+    this.taskSvc.clearTasks();
+  }
 
+  
   dateInPastValidator(control: AbstractControl): {[key: string]: any} | null {
     const selectedDate = new Date(control.value);
     const currentDate = new Date();
@@ -41,6 +48,7 @@ export class TodoformComponent implements OnInit {
     }
     return null;
   }
+
   
 
 }
