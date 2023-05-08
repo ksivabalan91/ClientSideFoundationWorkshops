@@ -9,6 +9,7 @@ import { ListComponent } from './list/list.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [	
@@ -19,6 +20,7 @@ import { ApiService } from './api.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    MaterialModule,
     HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

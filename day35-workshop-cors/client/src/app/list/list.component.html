@@ -1,3 +1,23 @@
-<p>
-  list works!
-</p>
+<div class="card" style="max-width: 100%; padding-bottom: 2rem;">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-5">
+        <h3 class="card-title">Games per page</h3>
+      </div>
+      <div class="col">
+      <select class="form-select form-select-sm" aria-label=".form-select-sm example" (input)="pageSizeSelect($event)">
+        <option selected>Select</option>
+        <option value={{i}} *ngFor="let i of [5,10,15]">{{i}}</option>
+      </select>                
+    </div>
+    <hr>
+    </div>
+    <h3>Games List</h3>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let game of games">{{game}}</li>
+    </ul>
+    <br>
+    <button class="btn btn-primary position-absolute bottom-0 start-1 mb-3" style="left: 10px;" (click)="previous()" [disabled]="counter==0">Previous</button>
+    <button class="btn btn-primary position-absolute bottom-0 end-1 mb-3" style="right: 10px;" (click)="next()" [disabled]="games.length<pageSize">Next</button>
+  </div>
+</div>

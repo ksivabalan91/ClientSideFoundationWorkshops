@@ -1,0 +1,25 @@
+.bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
+  .card {
+    /* Set the maximum width for the card on small screens */
+    max-width: 500px;
+  }
+  
+  @media (min-width: 768px) {
+    /* Remove the maximum width on larger screens */
+    .card {
+      min-width: 500px;
+      max-width: 500px;
+    }
+  }
+  

@@ -1,35 +1,38 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { map } from 'rxjs';
+import { Subject, catchError, lastValueFrom, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   
-  games:any[]=[];
-  page:number = 0;
-  numberOfEntries:number=10
-  url = 'http://localhost:8080';
+  offset:number = 0;
+  numberOfEntries:number=10;
+  url = 'http://localhost:8080/api/games';
+  refresh$ = new Subject<void>();
 
-constructor(private http: HttpClient) {}
-
+constructor(private http: HttpClient) {
+}
 
 callApi(){
-  const params = new HttpParams().set('limit',this.numberOfEntries).set('offset',this.page)
-  this.http.get<any[]>(this.url,{params}).subscribe(
-    (dataArr:any[]) => {
-      this.games.push(dataArr.map(obj => obj.name))
-      console.log(this.games)
-    },
-    error => console.error(error)
-  );
+  console.log("api called")
+  const params = new HttpParams().set('limit',this.numberOfEntries).set('offset',this.offset)
+  console.log(this.url+params);
+  return lastValueFrom(
+  this.http.get<string[]>(this.url,{params}).pipe(
+    map((dataArr:any[]) => dataArr.map(obj => obj.name) as string[]),
+    catchError( error => {
+      console.error(error);
+      return ([]);
+    })
+  )
+  )
 }
 
-getGames(){
-  return this.games.slice();
+reset(){
+  this.offset=0;
 }
-
 
 }
