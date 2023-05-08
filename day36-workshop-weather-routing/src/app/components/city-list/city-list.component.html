@@ -1,0 +1,20 @@
+<div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">Insert New City</span>
+    <input type="text" class="form-control" placeholder="..." aria-label="Username" aria-describedby="basic-addon1" (input)="cityInput($event)" #cityelement>
+    <button class="btn btn-primary"  type="button" (click)="addCity()">Add</button>
+</div>
+<hr>
+<div class="input-group mb-3" *ngFor="let city of cityList; let i = index">
+    <button class="input-group-text" style="width: 80%;"  (click)="goTo(city)">{{city|titlecase}}</button>
+    <button class="btn btn-danger" style="width: 20%;" (click)="deleteCity(i)">Delete</button>
+</div>
+<!-- <div class="list-group">
+    <div class="row " *ngFor="let city of cityList">
+        <div class="col-11">
+            <a class="list-group-item list-group-item-action" (click)="goTo($event)">{{city|titlecase}}</a>
+        </div>
+        <div class="col-1">
+            <span><button class="btn btn-danger" style="padding-top: 2%;padding-bottom: 1%;">Delete</button></span>
+        </div>
+    </div>
+</div> -->
