@@ -30,9 +30,4 @@ callApi(){
   )
   )
 }
-
-reset(){
-  this.offset=0;
-}
-
 }

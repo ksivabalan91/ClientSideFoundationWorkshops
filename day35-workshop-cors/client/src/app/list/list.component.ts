@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
   pageSizeSelect(event:any){
     this.pageSize=event.target.value;
     this.apiSvc.numberOfEntries=this.pageSize;
-    this.apiSvc.reset();
+    this.apiSvc.offset=0;
     this.counter=0;
     this.apiSvc.refresh$.next();
   }
