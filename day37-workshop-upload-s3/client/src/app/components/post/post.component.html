@@ -1,0 +1,27 @@
+<div class="container">  
+  <form [formGroup]="form" (ngSubmit)="upload()">
+    <div class="row">
+      <div class="col-9">
+        <h5>Comments:</h5>
+      </div>
+      <div class="col-3">
+        <button [routerLink]="['view']">View uploaded files</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+        <textarea name="comments" cols="40" rows="10" formControlName="comments" placeholder="Enter your comments here"></textarea>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-4">
+        <input type="file" accept="image/*" formControlName="imageFile" #file>
+      </div>
+      <div class="col-sm-1">
+        <button class="btn btn-primary" type="submit">Upload</button>
+      </div>
+    </div>
+    <div *ngIf="isUploaded"><h6 style="color: red;">Uploaded</h6></div>
+  </form>
+  
+</div>
