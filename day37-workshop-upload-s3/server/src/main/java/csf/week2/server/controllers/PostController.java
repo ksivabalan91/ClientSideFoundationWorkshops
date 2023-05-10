@@ -5,13 +5,13 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,7 +20,7 @@ import csf.week2.server.services.S3Service;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
-@Controller
+@RestController
 @RequestMapping(path="/api")
 @CrossOrigin(origins = "*")
 public class PostController {
@@ -45,13 +45,19 @@ public class PostController {
             return ResponseEntity.ok().body(json.toString());
             }
 
-    @GetMapping(path = "/comment/{postId}")
+    @GetMapping(
+        path = "/comment/{postId}",
+        produces = MediaType.APPLICATION_JSON_VALUE
+        )
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> get(@PathVariable String postId){
         return s3Svc.download(postId);
     }
     
-    @GetMapping(path = "/comments")
+    @GetMapping(
+        path = "/comments",
+        produces = MediaType.APPLICATION_JSON_VALUE
+        )
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> listAll() throws JsonProcessingException{
         return s3Svc.listAll();
