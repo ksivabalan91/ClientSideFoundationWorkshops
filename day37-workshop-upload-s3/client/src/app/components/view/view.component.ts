@@ -12,6 +12,7 @@ export class ViewComponent implements OnInit {
   uploadSub$!: Subscription;
   imageSub$!: Subscription;
   imageData!:any;
+  commentData!:any;
   images:string[] = ['dummy data']
 
   constructor(private fileSvc: FileService) { 
@@ -23,7 +24,10 @@ export class ViewComponent implements OnInit {
     // getting images from s3 bucket
     console.log(" view component init called")
     // subscribed to click on the list of image names to load imageData
-    this.imageSub$ =  this.fileSvc.loadImage.subscribe((data)=>this.imageData=data);
+    this.imageSub$ =  this.fileSvc.loadImage.subscribe((data)=>{
+      this.imageData=data.image;
+      this.commentData=data.comments;
+    });
   }
 
   loadImage(img:string){

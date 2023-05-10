@@ -8,9 +8,12 @@ import { Subject, firstValueFrom, lastValueFrom, map } from 'rxjs';
 })
 export class FileService {
 
-loadImage = new Subject<String>();
+loadImage = new Subject<{image:string,comments:string}>();
 uploadedFile = new Subject<String>();
 images:string[]=[];
+//! for local host 8080 change this to empty string ""
+url = "https://gas-rain-production.up.railway.app";
+// url='';
 
 constructor(private http: HttpClient){}
 
@@ -20,7 +23,7 @@ upload(form:FormGroup, imageFileElem: ElementRef){
   formData.set('picture', imageFileElem.nativeElement.files[0])
   formData.set('comments', form.get('comments')?.value)
 
-  this.http.post("/api/comment",formData)
+  this.http.post(this.url+"/api/comment",formData)
   .pipe(
     map(
       (data:any) => { return data['response'] }
@@ -37,11 +40,14 @@ upload(form:FormGroup, imageFileElem: ElementRef){
 
 download(img:string){
   console.log("download called")
-  this.http.get("/api/comment/"+img).pipe(
+  this.http.get(this.url+"/api/comment/"+img).pipe(
     map(
       (data:any) => {
         console.log(data)
-        return data["image"]
+        return {
+          image: data["image"],
+          comments: data["comments"],
+        }
       }
       )
       ).subscribe(
@@ -54,7 +60,7 @@ download(img:string){
 async getAll() {
   console.log("getAll called");
   try {
-    this.images = await lastValueFrom(this.http.get<string[]>("/api/comments"));
+    this.images = await lastValueFrom(this.http.get<string[]>(this.url+"/api/comments"));
     console.log("in getAll", this.images);
   } catch (error) {
     console.error("Error getting images", error);
