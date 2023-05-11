@@ -58,7 +58,7 @@ public class PostController {
         path = "/comments",
         produces = MediaType.APPLICATION_JSON_VALUE
         )
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "https://day37-workshop-upload-s3.vercel.app")
     public ResponseEntity<String> listAll() throws JsonProcessingException{
         return s3Svc.listAll();
     }

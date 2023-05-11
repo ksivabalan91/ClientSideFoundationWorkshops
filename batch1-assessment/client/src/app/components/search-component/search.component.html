@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row align-center">
+        <div class="col-sm-12">
+            <form [formGroup]="form" (ngSubmit)="search()">
+                <h3> Search Movie Reviews</h3>    
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">Movie Name: </span>
+                    <input type="text" class="form-control" placeholder="enter a movie title" aria-label="Username" aria-describedby="basic-addon1" formControlName="searchTerm">
+                    <button [disabled]="isInputValid()" type="submit" class="btn btn-primary">Search</button>
+                </div>
+                <p style="color: red;font-size: x-small;" *ngIf="isValid()">*please enter at least 3 characters excluding spaces</p>                
+            </form>
+        </div>
+    </div>
+</div>
